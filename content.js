@@ -1,7 +1,6 @@
 // content.js
 
-// استبدل الرابط أدناه بالرابط Raw لملف rules.json الخاص بك على GitHub
-const RULES_URL = "https://raw.githubusercontent.com/USERNAME/REPO/main/rules.json";
+const RULES_URL = "https://raw.githubusercontent.com/amerziko70-lab/aws-scanner-extension/refs/heads/main/manifest.json";
 
 async function loadRules() {
   try {
@@ -33,7 +32,6 @@ function scanPage(rules) {
   });
 }
 
-// ننتظر الصفحة لتكتمل بالكامل
 window.addEventListener("load", async () => {
   const rules = await loadRules();
   console.log("Loaded rules:", rules.length);
