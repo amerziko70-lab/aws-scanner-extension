@@ -1,6 +1,6 @@
 // content.js
 
-const RULES_URL = "https://raw.githubusercontent.com/amerziko70-lab/aws-scanner-extension/refs/heads/main/manifest.json";
+const RULES_URL = "https://raw.githubusercontent.com/amerziko70-lab/aws-scanner-extension/refs/heads/main/rules.json";
 
 async function loadRules() {
   try {
