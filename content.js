@@ -1,8 +1,18 @@
 // content.js
+
+// استبدل الرابط أدناه بالرابط Raw لملف rules.json الخاص بك على GitHub
+const RULES_URL = "https://raw.githubusercontent.com/USERNAME/REPO/main/rules.json";
+
 async function loadRules() {
-  const res = await fetch(chrome.runtime.getURL("rules.json"));
-  const data = await res.json();
-  return data.rules || [];
+  try {
+    const res = await fetch(RULES_URL);
+    if (!res.ok) throw new Error("Failed to fetch rules.json");
+    const data = await res.json();
+    return data.rules || [];
+  } catch (e) {
+    console.error("Error loading rules:", e);
+    return [];
+  }
 }
 
 function scanPage(rules) {
@@ -14,7 +24,7 @@ function scanPage(rules) {
       const regex = new RegExp(rule.regex, "g");
       const matches = text.match(regex);
       if (matches && matches.length > 0) {
-        console.log("🚨 Secret found:", {rule: rule.description, matches: matches.slice(0,5)});
+        console.log("🚨 Secret found:", { rule: rule.description, matches: matches.slice(0,5) });
         alert("⚠️ Possible secret detected: " + rule.description);
       }
     } catch (e) {
@@ -26,6 +36,6 @@ function scanPage(rules) {
 // ننتظر الصفحة لتكتمل بالكامل
 window.addEventListener("load", async () => {
   const rules = await loadRules();
-  console.log("Loaded rules:", rules.length); // نتأكد أن القواعد تم تحميلها
+  console.log("Loaded rules:", rules.length);
   scanPage(rules);
 });
